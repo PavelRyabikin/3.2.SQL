@@ -39,4 +39,20 @@ public class SQLHelper {
             throw new RuntimeException(e);
         }
     }
+
+    public static void cleanDatabase() {
+        String deleteTransactions = "DELETE FROM card_transactions";
+        String deleteAuthCodes = "DELETE FROM auth_codes";
+        String deleteCards = "DELETE FROM cards";
+        String deleteUsers = "DELETE FROM users";
+
+        try (var conn = getConnection()) {
+            runner.update(conn, deleteTransactions);
+            runner.update(conn, deleteAuthCodes);
+            runner.update(conn, deleteCards);
+            runner.update(conn, deleteUsers);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
